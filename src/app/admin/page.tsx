@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getAdminAuthHeaders } from "@/lib/admin-fetch";
-import { FolderOpen, Users, MessageSquare, TrendingUp, Bot, Mail, ArrowUpRight, ArrowDownRight, ChevronRight } from "lucide-react";
+import { FolderOpen, Users, MessageSquare, TrendingUp, Bot, Mail, ArrowUpRight, ArrowDownRight, ChevronRight, Settings } from "lucide-react";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
