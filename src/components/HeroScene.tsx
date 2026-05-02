@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Text, MeshDistortMaterial, Sphere, Torus } from "@react-three/drei";
+import { OrbitControls, MeshDistortMaterial, Sphere, Torus } from "@react-three/drei";
 import * as THREE from "three";
 
 function FloatingSphere({ position, color, speed = 1, scale = 1 }: { position: [number, number, number], color: string, speed?: number, scale?: number }) {
@@ -21,7 +21,6 @@ function FloatingSphere({ position, color, speed = 1, scale = 1 }: { position: [
     <Sphere ref={meshRef} args={[scale, 32, 32]} position={position} onPointerOver={() => setHovered(true)} onPointerOut={() => setHovered(false)}>
       <MeshDistortMaterial
         color={color}
-        attach="material"
         distort={hovered ? 0.6 : 0.3}
         speed={hovered ? 4 : 2}
         roughness={0.2}
@@ -52,10 +51,19 @@ function ParticleField() {
   const pointsRef = useRef<THREE.Points>(null);
   const count = 500;
   
-  const positions = new Float32Array(count * 3);
-  for (let i = 0; i < count * 3; i++) {
-    positions[i] = (Math.random() - 0.5) * 20;
-  }
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i++) {
+      pos[i] = (Math.random() - 0.5) * 20;
+    }
+    return pos;
+  }, []);
+
+  const geometry = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    return geo;
+  }, [positions]);
 
   useFrame((state) => {
     if (pointsRef.current) {
@@ -64,15 +72,7 @@ function ParticleField() {
   });
 
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={count}
-          array={positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
+    <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial size={0.03} color="#00f5ff" transparent opacity={0.6} />
     </points>
   );
