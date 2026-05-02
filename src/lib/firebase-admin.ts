@@ -33,7 +33,7 @@ export function getAdminApp(): App {
         privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY!.replace(/\\n/g, "\n"),
       });
     } else {
-      const serviceAccountPath = path.join(process.cwd(), "codedesign-firebase-adminsdk.json");
+      const serviceAccountPath = path.join(process.cwd(), "codedesign-fb76c-firebase-adminsdk-fbsvc-f5aeaabe47.json");
       if (fs.existsSync(serviceAccountPath)) {
         const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf8"));
         credential = cert({
