@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Brain, MessageSquare, Image, BarChart3, Shield, Zap, Globe, Code2, Smartphone, Bot, Eye, Mic, Database, Workflow, TrendingUp, Users, FileText, Video, Palette, Search, Clock, CreditCard, MapPin, Calendar, Mail, Phone, Star, CheckCircle, AlertCircle, Info, ExternalLink, Copy, Download, Upload, Settings, Bell, Heart, Share2, Bookmark, ThumbsUp, ThumbsDown, Flag, Edit, Trash2, Plus, Minus, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Search as SearchIcon, Filter, SortAsc, SortDesc, Grid, List, MoreHorizontal, MoreVertical, Menu, X as XIcon } from "lucide-react";
+import { ArrowRight, MessageSquare, Image, BarChart3, Shield, Zap, Brain, ChevronDown, ChevronRight, Terminal } from "lucide-react";
 
 const aiIdeas = [
   {
@@ -35,7 +35,7 @@ const aiIdeas = [
   },
   {
     category: "Automação & Processos",
-    icon: Workflow,
+    icon: Zap,
     ideas: [
       { title: "Gestão por Comandos de Voz", desc: "Controle todo o seu negócio através de comandos naturais via Telegram ou assistente de voz", impact: "Gestão 5x mais rápida" },
       { title: "Processamento de Documentos", desc: "IA que lê, classifica e extrai dados de faturas, contratos e formulários automaticamente", impact: "Redução de 95% em trabalho manual" },
@@ -54,7 +54,7 @@ const aiIdeas = [
   },
   {
     category: "E-commerce & Vendas",
-    icon: CreditCard,
+    icon: BarChart3,
     ideas: [
       { title: "Recomendações Personalizadas", desc: "Sistema de recomendação tipo Netflix/Amazon que sugere produtos relevantes", impact: "Aumento de 35% no ticket médio" },
       { title: "Preços Dinâmicos", desc: "IA que ajusta preços automaticamente baseado em demanda, concorrência e stock", impact: "Margem de lucro otimizada em 25%" },
@@ -67,55 +67,50 @@ export default function IdeiasPage() {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] pt-24">
+    <main className="min-h-screen bg-black pt-16">
       {/* Header */}
-      <section className="py-20 px-6 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-transparent" />
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 glass-panel px-4 py-2 rounded-full mb-8">
-            <Brain className="w-4 h-4 text-cyan-400" />
-            <span className="text-sm text-gray-300">Possibilidades Infinitas</span>
+      <section className="py-24 px-6 border-b border-neutral-900">
+        <div className="max-w-4xl mx-auto">
+          <div className="badge mb-6">
+            <Brain className="w-3 h-3" />
+            <span>Possibilidades Infinitas</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-[var(--font-space)] font-bold mb-6">
+          <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-6">
             O que a <span className="gradient-text">IA</span> pode fazer
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-neutral-500 max-w-2xl">
             Explore as infinitas possibilidades da inteligência artificial aplicada ao seu negócio.
             Cada solução é personalizada para as suas necessidades.
           </p>
         </div>
       </section>
 
-      {/* Ideas Grid */}
-      <section className="py-16 px-6 grid-bg">
-        <div className="max-w-7xl mx-auto">
+      {/* Ideas */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
           {aiIdeas.map((category, idx) => (
-            <div key={idx} className="mb-12">
+            <div key={idx} className="mb-2">
               <button
                 onClick={() => setExpandedCategory(expandedCategory === category.category ? null : category.category)}
-                className="w-full flex items-center justify-between glass-panel p-6 rounded-2xl hover:border-cyan-400/30 transition-all mb-4"
+                className="w-full flex items-center justify-between py-5 px-4 border-b border-neutral-900 hover:bg-neutral-950/50 transition-colors group"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 flex items-center justify-center">
-                    <category.icon className="w-6 h-6 text-cyan-400" />
-                  </div>
-                  <div className="text-left">
-                    <h2 className="text-2xl font-[var(--font-space)] font-bold">{category.category}</h2>
-                    <p className="text-gray-400 text-sm">{category.ideas.length} soluções disponíveis</p>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <category.icon className="w-5 h-5 text-neutral-500 group-hover:text-white transition-colors" />
+                  <span className="text-lg font-display font-medium text-white">{category.category}</span>
+                  <span className="text-sm text-neutral-600">{category.ideas.length} soluções</span>
                 </div>
-                <ChevronDown className={`w-6 h-6 text-gray-400 transition-transform ${expandedCategory === category.category ? "rotate-180" : ""}`} />
+                <ChevronDown className={`w-4 h-4 text-neutral-500 transition-transform ${expandedCategory === category.category ? "rotate-180" : ""}`} />
               </button>
 
               {expandedCategory === category.category && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ml-0 md:ml-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-neutral-900 border border-neutral-900 mb-2">
                   {category.ideas.map((idea, i) => (
-                    <div key={i} className="glass-panel p-6 rounded-xl hover:bg-white/5 transition-all">
-                      <h3 className="text-lg font-bold mb-2 text-cyan-400">{idea.title}</h3>
-                      <p className="text-gray-400 text-sm mb-4">{idea.desc}</p>
-                      <div className="flex items-center gap-2 text-xs">
-                        <Zap className="w-3 h-3 text-yellow-400" />
-                        <span className="text-yellow-400">{idea.impact}</span>
+                    <div key={i} className="bg-black p-6 group hover:bg-neutral-950 transition-colors">
+                      <h3 className="text-sm font-display font-semibold text-white mb-2">{idea.title}</h3>
+                      <p className="text-xs text-neutral-500 mb-3">{idea.desc}</p>
+                      <div className="flex items-center gap-1.5">
+                        <Zap className="w-3 h-3 text-cyan-400" />
+                        <span className="text-xs text-cyan-400">{idea.impact}</span>
                       </div>
                     </div>
                   ))}
@@ -127,17 +122,17 @@ export default function IdeiasPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center glass-panel p-12 rounded-3xl">
-          <h2 className="text-3xl md:text-4xl font-[var(--font-space)] font-bold mb-4">
+      <section className="py-24 px-6 border-t border-neutral-900">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-display font-bold text-white mb-4">
             Tem uma ideia em mente?
           </h2>
-          <p className="text-gray-400 text-lg mb-8">
-            Transformamos qualquer conceito em realidade. Fale connosco e vamos criar algo incrível juntos.
+          <p className="text-neutral-500 mb-8">
+            Transformamos qualquer conceito em realidade.
           </p>
-          <Link href="/contacto" className="btn-primary text-lg px-8">
+          <Link href="/contacto" className="btn-primary">
             Pedir Orçamento Grátis
-            <ArrowRight className="w-5 h-5 inline ml-2" />
+            <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>

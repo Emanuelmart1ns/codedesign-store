@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Mail, Phone, MapPin, Send, MessageSquare, Calendar, Clock, Sparkles, Bot, CheckCircle, User, Building, FileText } from "lucide-react";
+import { ArrowRight, Mail, Phone, MapPin, Send, MessageSquare, Clock, Bot, CheckCircle, User, Building, FileText, ChevronRight, Terminal } from "lucide-react";
 
 export default function ContactoPage() {
   const [formData, setFormData] = useState({ name: "", email: "", company: "", service: "", message: "" });
@@ -28,97 +28,71 @@ export default function ContactoPage() {
 
   if (submitted) {
     return (
-      <main className="min-h-screen bg-[#0a0a0f] pt-24 flex items-center justify-center px-6">
-        <div className="text-center glass-panel p-12 rounded-3xl max-w-lg">
-          <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-6" />
-          <h1 className="text-3xl font-[var(--font-space)] font-bold mb-4">Mensagem Enviada!</h1>
-          <p className="text-gray-400 mb-8">Obrigado pelo seu contacto. A nossa equipa responderá em breve.</p>
-          <Link href="/" className="btn-primary">Voltar ao Início</Link>
+      <main className="min-h-screen bg-black pt-16 flex items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-8 h-8 text-green-400" />
+          </div>
+          <h1 className="text-3xl font-display font-bold text-white mb-4">Mensagem Enviada!</h1>
+          <p className="text-neutral-500 mb-8">Obrigado pelo seu contacto. A nossa equipa responderá em breve.</p>
+          <Link href="/" className="btn-primary">
+            Voltar ao Início
+            <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] pt-24">
-      <section className="py-20 px-6 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/20 to-transparent" />
-        <div className="max-w-4xl mx-auto relative z-10">
-          <div className="inline-flex items-center gap-2 glass-panel px-4 py-2 rounded-full mb-8">
-            <MessageSquare className="w-4 h-4 text-cyan-400" />
-            <span className="text-sm text-gray-300">Fale Connosco</span>
+    <main className="min-h-screen bg-black pt-16">
+      {/* Header */}
+      <section className="py-24 px-6 border-b border-neutral-900">
+        <div className="max-w-4xl mx-auto">
+          <div className="badge mb-6">
+            <MessageSquare className="w-3 h-3" />
+            <span>Fale Connosco</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-[var(--font-space)] font-bold mb-6">
+          <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-6">
             Vamos <span className="gradient-text">Conversar</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-xl text-neutral-500 max-w-2xl">
             Tem um projeto em mente? Conte-nos a sua ideia e transformamo-la em realidade.
           </p>
         </div>
       </section>
 
-      <section className="py-16 px-6 grid-bg">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Info */}
             <div className="space-y-6">
-              <div className="glass-panel p-6 rounded-2xl">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-cyan-400" />
+              {[
+                { icon: Mail, label: "Email", value: "hello@codedesign.store" },
+                { icon: Phone, label: "Telefone", value: "+351 912 345 678" },
+                { icon: MapPin, label: "Localização", value: "Portugal" },
+                { icon: Clock, label: "Horário", value: "Seg - Sex: 9h - 18h" },
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-neutral-900 flex items-center justify-center flex-shrink-0">
+                    <item.icon className="w-4 h-4 text-neutral-500" />
                   </div>
                   <div>
-                    <h3 className="font-bold mb-1">Email</h3>
-                    <p className="text-gray-400">hello@codedesign.store</p>
+                    <h3 className="text-sm font-medium text-white mb-0.5">{item.label}</h3>
+                    <p className="text-sm text-neutral-500">{item.value}</p>
                   </div>
                 </div>
-              </div>
+              ))}
 
-              <div className="glass-panel p-6 rounded-2xl">
+              <div className="pt-6 border-t border-neutral-900">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-cyan-400" />
+                  <div className="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
+                    <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
                   <div>
-                    <h3 className="font-bold mb-1">Telefone</h3>
-                    <p className="text-gray-400">+351 912 345 678</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="glass-panel p-6 rounded-2xl">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Localização</h3>
-                    <p className="text-gray-400">Portugal</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="glass-panel p-6 rounded-2xl">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Horário</h3>
-                    <p className="text-gray-400">Seg - Sex: 9h - 18h</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="glass-panel p-6 rounded-2xl border-cyan-400/30">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-6 h-6 text-cyan-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">Assistente IA</h3>
-                    <p className="text-gray-400 text-sm mb-3">Respostas instantâneas via Telegram</p>
-                    <a href="https://t.me/CodeDesignBot" target="_blank" rel="noopener noreferrer" className="btn-secondary text-sm w-full block text-center">
+                    <h3 className="text-sm font-medium text-white mb-0.5">Assistente IA</h3>
+                    <p className="text-sm text-neutral-500 mb-3">Respostas instantâneas via Telegram</p>
+                    <a href="https://t.me/CodeDesignBot" target="_blank" rel="noopener noreferrer" className="btn-secondary text-xs">
                       Abrir no Telegram
                     </a>
                   </div>
@@ -128,66 +102,64 @@ export default function ContactoPage() {
 
             {/* Form */}
             <div className="lg:col-span-2">
-              <form onSubmit={handleSubmit} className="glass-panel p-8 rounded-2xl">
-                <h2 className="text-2xl font-[var(--font-space)] font-bold mb-6">Pedir Orçamento</h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Nome *</label>
+                    <label className="block text-sm text-neutral-500 mb-2">Nome *</label>
                     <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-10 pr-4 py-3 text-white text-sm focus:border-neutral-600 focus:outline-none transition-colors placeholder:text-neutral-600"
                         placeholder="O seu nome"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Email *</label>
+                    <label className="block text-sm text-neutral-500 mb-2">Email *</label>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-10 pr-4 py-3 text-white text-sm focus:border-neutral-600 focus:outline-none transition-colors placeholder:text-neutral-600"
                         placeholder="email@exemplo.com"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Empresa</label>
+                    <label className="block text-sm text-neutral-500 mb-2">Empresa</label>
                     <div className="relative">
-                      <Building className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <Building className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                       <input
                         type="text"
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:border-cyan-400 focus:outline-none transition-colors"
+                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-10 pr-4 py-3 text-white text-sm focus:border-neutral-600 focus:outline-none transition-colors placeholder:text-neutral-600"
                         placeholder="Nome da empresa"
                       />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-400 mb-2">Serviço</label>
+                    <label className="block text-sm text-neutral-500 mb-2">Serviço</label>
                     <div className="relative">
-                      <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                      <FileText className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
                       <select
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:border-cyan-400 focus:outline-none transition-colors appearance-none"
+                        className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-10 pr-4 py-3 text-white text-sm focus:border-neutral-600 focus:outline-none transition-colors appearance-none"
                       >
                         <option value="">Selecionar...</option>
                         <option value="web">Web Design</option>
@@ -201,22 +173,22 @@ export default function ContactoPage() {
                   </div>
                 </div>
 
-                <div className="mb-6">
-                  <label className="block text-sm text-gray-400 mb-2">Mensagem *</label>
+                <div>
+                  <label className="block text-sm text-neutral-500 mb-2">Mensagem *</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white focus:border-cyan-400 focus:outline-none transition-colors resize-none"
+                    className="w-full bg-neutral-900 border border-neutral-800 rounded-lg p-4 text-white text-sm focus:border-neutral-600 focus:outline-none transition-colors resize-none placeholder:text-neutral-600"
                     placeholder="Descreva o seu projeto ou ideia..."
                   />
                 </div>
 
-                <button type="submit" className="btn-primary w-full text-lg">
+                <button type="submit" className="btn-primary w-full justify-center">
                   Enviar Mensagem
-                  <Send className="w-5 h-5 inline ml-2" />
+                  <Send className="w-4 h-4" />
                 </button>
               </form>
             </div>

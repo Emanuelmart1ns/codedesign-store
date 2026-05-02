@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getAdminAuthHeaders } from "@/lib/admin-fetch";
-import { Plus, Edit, Trash2, FileText, Calendar, Eye } from "lucide-react";
+import { Plus, Trash2, FileText, Calendar, Eye, ChevronRight } from "lucide-react";
 
 export default function AdminBlog() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -64,62 +64,60 @@ export default function AdminBlog() {
     }
   }
 
-  if (loading) return <div className="text-gray-400">A carregar...</div>;
+  if (loading) return <div className="text-neutral-500 text-sm">A carregar...</div>;
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-[var(--font-space)] font-bold">Blog</h2>
-          <p className="text-gray-400">Gerir artigos e publicações</p>
+          <h2 className="text-xl font-display font-bold text-white mb-1">Blog</h2>
+          <p className="text-sm text-neutral-500">Gerir artigos e publicações</p>
         </div>
-        <button onClick={() => setShowForm(!showForm)} className="btn-primary flex items-center gap-2">
-          <Plus className="w-4 h-4" />
+        <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm">
+          <Plus className="w-3.5 h-3.5" />
           Novo Artigo
         </button>
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="glass-panel p-6 rounded-2xl space-y-4">
-          <input type="text" placeholder="Título" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none" />
-          <input type="text" placeholder="Resumo" value={formData.excerpt} onChange={e => setFormData({...formData, excerpt: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none" />
-          <textarea placeholder="Conteúdo" value={formData.content} onChange={e => setFormData({...formData, content: e.target.value})} required rows={8} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none resize-none" />
-          <input type="text" placeholder="Tags (separadas por vírgula)" value={formData.tags} onChange={e => setFormData({...formData, tags: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none" />
+        <form onSubmit={handleSubmit} className="bg-neutral-900 border border-neutral-800 rounded-lg p-5 space-y-4">
+          <input type="text" placeholder="Título" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} required className="w-full bg-black border border-neutral-800 rounded-lg px-4 py-2.5 text-white text-sm focus:border-neutral-600 focus:outline-none placeholder:text-neutral-600" />
+          <input type="text" placeholder="Resumo" value={formData.excerpt} onChange={e => setFormData({...formData, excerpt: e.target.value})} className="w-full bg-black border border-neutral-800 rounded-lg px-4 py-2.5 text-white text-sm focus:border-neutral-600 focus:outline-none placeholder:text-neutral-600" />
+          <textarea placeholder="Conteúdo" value={formData.content} onChange={e => setFormData({...formData, content: e.target.value})} required rows={8} className="w-full bg-black border border-neutral-800 rounded-lg px-4 py-2.5 text-white text-sm focus:border-neutral-600 focus:outline-none resize-none placeholder:text-neutral-600" />
+          <input type="text" placeholder="Tags (separadas por vírgula)" value={formData.tags} onChange={e => setFormData({...formData, tags: e.target.value})} className="w-full bg-black border border-neutral-800 rounded-lg px-4 py-2.5 text-white text-sm focus:border-neutral-600 focus:outline-none placeholder:text-neutral-600" />
           <div className="flex gap-3">
-            <button type="submit" className="btn-primary">Publicar</button>
-            <button type="button" onClick={() => setShowForm(false)} className="btn-secondary">Cancelar</button>
+            <button type="submit" className="btn-primary text-sm">Publicar</button>
+            <button type="button" onClick={() => setShowForm(false)} className="btn-secondary text-sm">Cancelar</button>
           </div>
         </form>
       )}
 
-      <div className="space-y-3">
+      <div className="space-y-px bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden">
         {posts.map((post) => (
-          <div key={post.id} className="glass-panel p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div key={post.id} className="bg-black p-5 flex items-start justify-between gap-4 group hover:bg-neutral-950 transition-colors">
             <div className="flex-1">
-              <h3 className="font-bold">{post.title}</h3>
-              <p className="text-sm text-gray-400">{post.excerpt}</p>
-              <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+              <h3 className="text-sm font-display font-semibold text-white mb-1">{post.title}</h3>
+              <p className="text-xs text-neutral-500 mb-2">{post.excerpt}</p>
+              <div className="flex items-center gap-3 text-xs text-neutral-600">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
                   {new Date(post.createdAt).toLocaleDateString("pt-PT")}
                 </span>
                 <span className="flex items-center gap-1">
                   <Eye className="w-3 h-3" />
-                  {post.views || 0} visualizações
+                  {post.views || 0}
                 </span>
               </div>
             </div>
-            <div className="flex gap-2">
-              <button onClick={() => handleDelete(post.id)} className="p-2 hover:bg-red-500/10 rounded-lg transition-colors">
-                <Trash2 className="w-4 h-4 text-red-400" />
-              </button>
-            </div>
+            <button onClick={() => handleDelete(post.id)} className="p-2 hover:bg-red-500/10 rounded-md transition-colors opacity-0 group-hover:opacity-100">
+              <Trash2 className="w-4 h-4 text-red-400" />
+            </button>
           </div>
         ))}
         {posts.length === 0 && (
-          <div className="text-center py-12 text-gray-400">
-            <FileText className="w-12 h-12 mx-auto mb-4 opacity-30" />
-            <p>Nenhum artigo publicado.</p>
+          <div className="p-12 text-center">
+            <FileText className="w-8 h-8 text-neutral-800 mx-auto mb-3" />
+            <p className="text-sm text-neutral-600">Nenhum artigo publicado.</p>
           </div>
         )}
       </div>

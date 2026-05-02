@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "@/lib/firebase";
-import { Cpu, Mail, Lock, AlertCircle } from "lucide-react";
+import { Mail, Lock, AlertCircle, ArrowRight, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export default function LoginPage() {
@@ -42,83 +42,89 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] flex items-center justify-center px-6">
-      <div className="w-full max-w-md">
-        <Link href="/" className="flex items-center gap-2 justify-center mb-8">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center">
-            <Cpu className="w-5 h-5 text-black" />
+    <main className="min-h-screen bg-black flex items-center justify-center px-6">
+      <div className="w-full max-w-sm">
+        <Link href="/" className="flex items-center gap-2.5 justify-center mb-10">
+          <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect x="1" y="1" width="6" height="6" rx="1" fill="black"/>
+              <rect x="9" y="1" width="6" height="6" rx="1" fill="black" opacity="0.4"/>
+              <rect x="1" y="9" width="6" height="6" rx="1" fill="black" opacity="0.4"/>
+              <rect x="9" y="9" width="6" height="6" rx="1" fill="black" opacity="0.2"/>
+            </svg>
           </div>
-          <span className="font-[var(--font-space)] text-xl font-bold">
-            Code<span className="gradient-text">Design</span>
+          <span className="font-display text-lg font-semibold tracking-tight text-white">
+            Code<span className="text-neutral-500">Design</span>
           </span>
         </Link>
 
-        <div className="glass-panel p-8 rounded-2xl">
-          <h1 className="text-2xl font-[var(--font-space)] font-bold mb-2 text-center">Admin Login</h1>
-          <p className="text-gray-400 text-center mb-8">Acesso restrito à equipa</p>
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-display font-bold text-white mb-2">Admin Login</h1>
+          <p className="text-sm text-neutral-500">Acesso restrito à equipa</p>
+        </div>
 
-          {error && (
-            <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl mb-6 text-red-400 text-sm">
-              <AlertCircle className="w-4 h-4 flex-shrink-0" />
-              {error}
-            </div>
-          )}
+        {error && (
+          <div className="flex items-center gap-2 p-3 bg-red-500/5 border border-red-500/20 rounded-lg mb-6 text-red-400 text-sm">
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            {error}
+          </div>
+        )}
 
-          <form onSubmit={handleEmailLogin} className="space-y-4">
-            <div>
-              <label className="block text-sm text-gray-400 mb-2">Email</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:border-cyan-400 focus:outline-none transition-colors"
-                  placeholder="admin@codedesign.store"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm text-gray-400 mb-2">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:border-cyan-400 focus:outline-none transition-colors"
-                  placeholder="••••••••"
-                />
-              </div>
-            </div>
-
-            <button type="submit" disabled={loading} className="btn-primary w-full">
-              {loading ? "A entrar..." : "Entrar"}
-            </button>
-          </form>
-
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/10" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-transparent text-gray-400">ou</span>
+        <form onSubmit={handleEmailLogin} className="space-y-4 mb-4">
+          <div>
+            <label className="block text-sm text-neutral-500 mb-1.5">Email</label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-10 pr-4 py-2.5 text-white text-sm focus:border-neutral-600 focus:outline-none transition-colors placeholder:text-neutral-600"
+                placeholder="admin@codedesign.store"
+              />
             </div>
           </div>
 
-          <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-2 bg-white/5 border border-white/10 rounded-xl py-3 text-white hover:bg-white/10 transition-colors">
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
-            </svg>
-            Continuar com Google
+          <div>
+            <label className="block text-sm text-neutral-500 mb-1.5">Password</label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-600" />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full bg-neutral-900 border border-neutral-800 rounded-lg pl-10 pr-4 py-2.5 text-white text-sm focus:border-neutral-600 focus:outline-none transition-colors placeholder:text-neutral-600"
+                placeholder="••••••••"
+              />
+            </div>
+          </div>
+
+          <button type="submit" disabled={loading} className="btn-primary w-full justify-center text-sm">
+            {loading ? "A entrar..." : "Entrar"}
+            <ArrowRight className="w-4 h-4" />
           </button>
+        </form>
+
+        <div className="relative mb-4">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-neutral-900" />
+          </div>
+          <div className="relative flex justify-center text-xs">
+            <span className="px-3 bg-black text-neutral-600">ou</span>
+          </div>
         </div>
+
+        <button onClick={handleGoogleLogin} disabled={loading} className="w-full flex items-center justify-center gap-2 bg-neutral-900 border border-neutral-800 rounded-lg py-2.5 text-white text-sm hover:bg-neutral-800 transition-colors">
+          <svg className="w-4 h-4" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+          </svg>
+          Continuar com Google
+        </button>
       </div>
     </main>
   );
