@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { Save, TestTube, Bot, Settings, Globe, Mail, Phone, MapPin, Clock, Github } from "lucide-react";
+import { Save, TestTube, Bot, Globe, Mail, Phone, MapPin, Clock, Link2 } from "lucide-react";
 
 export default function ConfiguracoesPage() {
   const router = useRouter();
@@ -129,7 +129,7 @@ export default function ConfiguracoesPage() {
 
         <form onSubmit={handleSave} className="glass-panel p-6 rounded-2xl space-y-4">
           <h3 className="text-lg font-bold flex items-center gap-2">
-            <Github className="w-5 h-5 text-gray-300" />
+            <Link2 className="w-5 h-5 text-gray-300" />
             Redes Sociais
           </h3>
           <input type="text" placeholder="Instagram URL" value={socials.instagram} onChange={e => setSocials({...socials, instagram: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-cyan-400 focus:outline-none" />
